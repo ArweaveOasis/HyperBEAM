@@ -265,11 +265,11 @@ new_proc_test() ->
     Wallet = ar_wallet:new(),
     SignedItem = hb_message:commit(
         #{ <<"data">> => <<"test">>, <<"random-key">> => rand:uniform(10000) },
-        Wallet
+        #{ priv_wallet => Wallet }
     ),
     SignedItem2 = hb_message:commit(
         #{ <<"data">> => <<"test2">> },
-        Wallet
+        #{ priv_wallet => Wallet }
     ),
     SignedItem3 = hb_message:commit(
         #{
@@ -277,7 +277,7 @@ new_proc_test() ->
             <<"deep-key">> =>
                 #{ <<"data">> => <<"test3">> }
         },
-        Wallet
+        #{ priv_wallet => Wallet }
     ),
     dev_scheduler_registry:find(hb_message:id(SignedItem, all), SignedItem),
     schedule(ID = hb_message:id(SignedItem, all), SignedItem),
